@@ -1,8 +1,6 @@
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-    // get all the data
+    // Get all the data
     const order_items = fetch('https://storage.googleapis.com/neta-interviews/MJZkEW3a8wmunaLv/items.json').then(e => e.json()).then(e => {
         return e;
     }).catch(err => {
@@ -23,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });;
 
 
-    // After data is loaded, it loops through order_items (as it is the single row line) and gets from customers and orders specific items for this row
+    // After data is loaded, it loops through order_items (as it is the single row line) and gets from customers and orders specific items for this row.
     Promise.all([order_items, orders, customers]).then(values => {
         let order_items = values[0]
         let orders = values[1]
@@ -41,11 +39,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Loop through order items ad display each row.
         order_items.forEach(order_item => {
 
-            // Get current order-item's customer, and order.
+            // Get the customer and order for the current "order-item" row.
             let order = orders.filter(e => { return e.id === order_item.orderId })[0]
             let customer = customers.filter(e => { return e.id === order.customerId })[0]
 
-            // Get the row html template from document, and fill it with the data
+            // Get the row html template from document, and fill it with the data.
             let new_row = fill_row(order, customer, order_item)
             document.querySelector('tbody').appendChild(new_row)
 
